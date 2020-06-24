@@ -15,17 +15,24 @@
 ;; + `doom-variable-pitch-font'
 ;; + `doom-big-font' -- used for `doom-big-font-mode'; use this for
 ;;   presentations or streaming.
-;;
+;; 
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "Recursive Mono Linear Static" :size 15 :height 130))
-(setq doom-variable-pitch-font (font-spec :family "Recursive Sans Linear Static" :size 15))
-(setq doom-big-font (font-spec :family "Recursive Mono Linear Static" :size 18))
+
+(setq doom-font (font-spec :family "IBM Plex Mono" :weight 'semibold :size 12))
+(setq doom-variable-pitch-font (font-spec :family "IBM Plex Sans" :size 15))
+(setq doom-big-font (font-spec :family "IBM Plex Mono" :weight 'semibold :size 18))
+
+;; for fira code workaround
+;; (set-fontset-font t nil (font-spec :size 20 :name "IBM Plex Mono"))
+
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one-light)
+(setq doom-theme 'doom-tomorrow-night)
+(setq doom-themes-enable-bold t
+      doom-themes-enable-italic t) 
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -83,7 +90,35 @@
 (map! :g "C-a" 'beginning-of-line)
 (map! :g "C-e" 'end-of-line)
 ;; I don't like smartparens
-(turn-off-smartparens-mode)
+(after! smartparens
+  (smartparens-global-mode -1))
+;; I don't use C-t to transpose and imenu is so core to programming
+(map! :g "C-t" 'helm-semantic-or-imenu)
+
+(add-hook 'web-mode-hook #'rainbow-mode)
+(add-hook 'css-mode-hook #'rainbow-mode)
+(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+
+(add-hook 'prog-mode-hook #'yas-minor-mode)
+
+;; italicize comments and keywords
+(custom-set-faces! '(font-lock-comment-face :slant italic) '(font-lock-keyword-face :slant italic))
+
+(after! org
+  (+org-pretty-mode))
+ 
+;; ligatures
+(load! "ligatures.el")
+(add-hook 'prog-mode-hook 'fira-code-mode)
+
+(after! rustic
+  (setq lsp-rust-server 'rust-analyzer))
+(setq rustic-lsp-server 'rust-analyzer)
+(map! :mode rustic-mode :g "M-e" 'helm-lsp-code-actions)
+
+(add-hook 'LaTeX-mode-hook #'prettify-symbols-mode)
+(add-hook 'LaTeX-mode-hook #'magic-latex-buffer)
+(setq TeX-electric-sub-and-superscript nil)
 
 (use-package! visual-regexp-steroids
   :bind (("C-c r" . vr/replace)

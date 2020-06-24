@@ -50,4 +50,6 @@
 ;; our package manager can't deal with; see raxod502/straight.el#279)
 ;(package! builtin-package :recipe (:branch "develop"))
 
+;; for better searching
 (package! visual-regexp-steroids)
+(package! magic-latex-buffer)
