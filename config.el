@@ -19,18 +19,18 @@
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
 
-(setq doom-font (font-spec :family "IBM Plex Mono" :weight 'semibold :size 12))
-(setq doom-variable-pitch-font (font-spec :family "IBM Plex Sans" :size 15))
-(setq doom-big-font (font-spec :family "IBM Plex Mono" :weight 'semibold :size 18))
+(setq doom-font (font-spec :family "Liga Plex Mono" :weight 'semibold :size 12))
+(setq doom-variable-pitch-font (font-spec :family "Recursive Sans Linear Static" :size 15))
+(setq doom-big-font (font-spec :family "Liga Plex Mono" :weight 'semibold :size 18))
 
 ;; for fira code workaround
-;; (set-fontset-font t nil (font-spec :size 20 :name "IBM Plex Mono"))
+(set-fontset-font t nil (font-spec :size 20 :name "Fira Code Symbol"))
 
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-tomorrow-night)
+(setq doom-theme 'doom-tomorrow-day)
 (setq doom-themes-enable-bold t
       doom-themes-enable-italic t) 
 
